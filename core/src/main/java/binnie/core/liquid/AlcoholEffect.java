@@ -18,6 +18,8 @@ public class AlcoholEffect {
 		float slowIntense = (intensity - 10.0f) / 4.0f;
 		if (slowIntense < 0.0f) {
 			slowIntense = 0.0f;
+		} else if (slowIntense > 5.0f) {
+			slowIntense = 5.0f; // cap at Slowness VI
 		}
 
 		float blindIntense = (intensity - 25.0f) / 2.0f;
@@ -26,10 +28,12 @@ public class AlcoholEffect {
 		}
 		player.addPotionEffect(new PotionEffect(MobEffects.NAUSEA, time, (int) intensity, false, true));
 		if (slowIntense > 0.0f) {
-			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, time, (int) slowIntense, false, true));
+			// slowTime is 2/3ths nausea time, for gradual sobering.
+			player.addPotionEffect(new PotionEffect(MobEffects.SLOWNESS, time * 2 / 3, (int) slowIntense, false, true));
 		}
 		if (blindIntense > 0.0f) {
-			player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, time, (int) blindIntense, false, true));
+			// blindTime is 1/3 nausea time, for gradual sobering
+			player.addPotionEffect(new PotionEffect(MobEffects.BLINDNESS, time / 3, (int) blindIntense, false, true));
 		}
 	}
 }
