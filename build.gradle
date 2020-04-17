@@ -5,6 +5,9 @@ buildscript {
             name = "forge"
             url = "http://files.minecraftforge.net/maven"
         }
+        flatDir {
+            dirs 'lib'
+        }
     }
     dependencies {
         classpath 'net.minecraftforge.gradle:ForgeGradle:2.3-SNAPSHOT'
@@ -22,9 +25,11 @@ apply plugin: 'maven'
 allprojects {
     apply plugin: 'net.minecraftforge.gradle.forge'
 
-    version = version_major + '.' + version_minor + '.' + version_patch
+    version = version_major + '.' + version_minor + '.' + version_patch + '.188'
     if (System.getenv("BUILD_NUMBER") != null) {
         version = version + "." + System.getenv("BUILD_NUMBER")
+    } else {
+        version = version + ".9999"
     }
 
     minecraft {
