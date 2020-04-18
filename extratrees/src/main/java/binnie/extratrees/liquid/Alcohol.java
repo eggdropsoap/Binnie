@@ -83,11 +83,7 @@ public enum Alcohol implements IFluidDefinition, ICocktailIngredientProvider {
 			addFermentation(Juice.RedGrape);
 		}
 	},
-	SparklingWine("wine.sparkling", 16709566, 0.1, 0.1F){
-		@Override
-		// roughly, sparkling wine is made by giving wine a second fermentation
-		protected void init() { addFermentation(Alcohol.WhiteWine); }
-	},
+	SparklingWine("wine.sparkling", 16709566, 0.1, 0.1F),
 	Agave("wine.agave", 13938276, 0.2, 0.1F),
 	Potato("fermented.potatoes", 12028240, 0.8, 0.1F) {
 		@Override
@@ -171,9 +167,6 @@ public enum Alcohol implements IFluidDefinition, ICocktailIngredientProvider {
 	protected void addFermentation(final Juice juice) {
 		this.fermentationLiquid.add(juice.getType().getIdentifier());
 	}
-
-	// for secondary fermentation recipes
-	protected void addFermentation(final Alcohol alcohol) { this.fermentationLiquid.add(alcohol.getType().getIdentifier()); }
 
 	protected void addFermentation(final String oreDict) {
 		this.fermentationSolid = oreDict;
